@@ -1,0 +1,19 @@
+package com.ecommerce.user.dto.request;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class AddressCreateRequest {
+
+	private String street;
+	private String city;
+	private String pincode;
+	private String state;
+	private String country;
+}
