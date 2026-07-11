@@ -10,7 +10,6 @@ public class OrderItemBuilder {
 	public static OrderItem buildOrderItemFromOrderItemCreateRequest(OrderItemCreateRequest orderItemCreateRequest) {
 		return OrderItem.builder()
 				.productId(orderItemCreateRequest.getProductId())
-				.price(orderItemCreateRequest.getPrice())
 				.quantity(orderItemCreateRequest.getQuantity())
 				.build();
 		
@@ -19,7 +18,7 @@ public class OrderItemBuilder {
 	public static OrderItemResponse buildOrderItemResponseFromOrderItem(OrderItem orderItem) {
 		return OrderItemResponse.builder()
 						.orderItemId(orderItem.getOrderItemId())
-						.orderId(orderItem.getOrderId())
+						.orderId(orderItem.getOrder().getOrderId())
 						.price(orderItem.getPrice())
 						.productId(orderItem.getProductId())
 						.quantity(orderItem.getQuantity())
@@ -27,13 +26,10 @@ public class OrderItemBuilder {
 		
 	}
 	
-	public static OrderItem buildOrderItemFromOrderUpdateRequest(OrderItem existOrderItem,OrderItemUpdateRequest orderItemUpdateRequest) {
+	public static OrderItem buildOrderItemFromOrderItemUpdateRequest(OrderItemUpdateRequest orderItemUpdateRequest) {
 		return OrderItem.builder()
-						.orderItemId(existOrderItem.getOrderItemId())
-						.orderId(existOrderItem.getOrderId())
 						.productId(orderItemUpdateRequest.getProductId())
 						.quantity(orderItemUpdateRequest.getQuantity())
-						.price(orderItemUpdateRequest.getPrice())
 						.build();
 	}
 

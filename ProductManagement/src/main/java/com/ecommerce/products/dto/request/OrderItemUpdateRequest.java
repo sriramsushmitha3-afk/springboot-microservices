@@ -13,7 +13,8 @@ public class OrderItemUpdateRequest {
 
 	private long productId;
 	
-	private int quantity;
+	private long orderItemId;
 	
-	private double price;
+	private int quantity;
+
 }

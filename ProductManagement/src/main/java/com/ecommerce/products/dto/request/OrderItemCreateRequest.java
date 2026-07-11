@@ -15,5 +15,4 @@ public class OrderItemCreateRequest {
 	
 	private int quantity;
 	
-	private double price;
 }

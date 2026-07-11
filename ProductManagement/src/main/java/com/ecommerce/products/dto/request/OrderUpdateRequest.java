@@ -2,13 +2,18 @@ package com.ecommerce.products.dto.request;
 
 import java.util.List;
 
-public class OrderUpdateRequest {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-	private long userId;
-	
-	private double totalPrice;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class OrderUpdateRequest {
 	
 	private String status;
 	
-	private List<OrderItemCreateRequest> orderItems;
+	private List<OrderItemUpdateRequest> orderItems;
 }
