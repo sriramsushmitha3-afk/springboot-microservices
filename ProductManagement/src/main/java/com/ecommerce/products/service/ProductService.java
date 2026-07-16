@@ -18,16 +18,14 @@ public class ProductService {
 
 	@Autowired
 	ProductRespository productRespository;
-	
-	@Autowired
-	ProductBuilder productBuilder;
+
 	
 	
 	public ProductResponse saveProduct(ProductCreateRequest productCreateRequest) {
 		
-		Product product = productBuilder.buildProductFromProductCreateRequest(productCreateRequest);
+		Product product = ProductBuilder.buildProductFromProductCreateRequest(productCreateRequest);
 		Product savedProduct = productRespository.save(product);
-		ProductResponse productResponseFromProduct = productBuilder.buildProductResponseFromProduct(savedProduct);
+		ProductResponse productResponseFromProduct = ProductBuilder.buildProductResponseFromProduct(savedProduct);
 		return productResponseFromProduct;
 	}
 	
@@ -42,14 +40,14 @@ public class ProductService {
 
 	public ProductResponse getProductById(long productId) {
 		Product product = productRespository.findById(productId).orElseThrow(()->new RuntimeException("Product not found with id: "+productId));
-		return productBuilder.buildProductResponseFromProduct(product);
+		return ProductBuilder.buildProductResponseFromProduct(product);
 	}
 
 	public ProductResponse updateProductById(long productId, ProductUpdateRequest productUpdateRequest) {
 		Product existingProduct = productRespository.findById(productId).orElseThrow(()->new RuntimeException("Product not found with id: "+productId));
-		Product product = productBuilder.buildProductFromProductUpdateRequest(existingProduct, productUpdateRequest);
+		Product product = ProductBuilder.buildProductFromProductUpdateRequest(existingProduct, productUpdateRequest);
 		Product savedProduct = productRespository.save(product);
-		ProductResponse productResponseFromProduct = productBuilder.buildProductResponseFromProduct(savedProduct);
+		ProductResponse productResponseFromProduct = ProductBuilder.buildProductResponseFromProduct(savedProduct);
 		
 		return productResponseFromProduct;
 	}
