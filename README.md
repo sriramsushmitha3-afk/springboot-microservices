@@ -1,44 +1,34 @@
-\# Spring Boot Microservices Practice
+# Spring Boot Microservices Practice
 
+## Overview
+This repository contains my Spring Boot backend practice project for microservices architecture and backend development concepts.
 
+## Modules
+- User Management
+- Product Management
+- Inventory Management
+- Delivery Management
 
-This repository contains my hands-on practice while learning Spring Boot and Microservices.
+## Technologies
+- Java
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- MySQL
+- Maven
+- Git
+- Postman
 
+## Features Implemented
+- Layered Architecture
+- DTO Pattern
+- Builder Pattern
+- CRUD REST APIs
+- Entity Relationships
+- Request & Response DTOs
 
-
-\## Modules
-
-
-
-\- User Management
-
-\- Product Management
-
-\- Inventory Management
-
-\- Delivery Management
-
-
-
-\## Technologies Used
-
-
-
-\- Java
-
-\- Spring Boot
-
-\- Spring Data JPA
-
-\- Hibernate
-
-\- MySQL
-
-\- Maven
-
-\- REST APIs
-
-
-
-This repository is updated regularly as I progress.
-
+## Currently Working On
+- Business Logic Implementation
+- Validation
+- Global Exception Handling
+- Unit Testing
