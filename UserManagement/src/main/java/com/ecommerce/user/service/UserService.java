@@ -19,7 +19,7 @@ public class UserService {
 	UserRepository userRepository;
 	
 	public UserResponse save(UserCreateRequest userCreateRequest) {
-		
+		System.out.println(userCreateRequest);
 		User user = UserBuilder.buildUserFromUserCreateRequest(userCreateRequest);
 		User savedUser = userRepository.save(user);
 		UserResponse userResponseFromUser = UserBuilder.buildUserResponseFromUser(savedUser);

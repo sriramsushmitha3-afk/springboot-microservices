@@ -26,5 +26,5 @@ public class OrderResponse {
 	
 	private LocalDateTime orderDate;
 	
-	private List<OrderItem> orderItems;
+	private List<OrderItemResponse> orderItems;
 }

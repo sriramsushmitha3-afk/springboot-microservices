@@ -19,7 +19,7 @@ import com.ecommerce.delivery.service.DeliveryService;
 import lombok.Builder;
 
 @RestController
-@RequestMapping("/{delivery}")
+@RequestMapping("/delivery")
 public class DeliveryController {
 
 	@Autowired

@@ -12,6 +12,7 @@ import com.ecommerce.user.model.User;
 public class UserBuilder {
 
 	public static User buildUserFromUserCreateRequest(UserCreateRequest userCreateRequest) {
+		System.out.println(userCreateRequest);
 		return User.builder()
 			.userName(userCreateRequest.getUserName())
 			.email(userCreateRequest.getEmail())
@@ -34,6 +35,7 @@ public class UserBuilder {
 	}
 	
 	public static Address buildAddressFromAddressCreateRequest(AddressCreateRequest addressCreateRequest) {
+		System.out.println(addressCreateRequest);
 		return Address.builder()
 			.city(addressCreateRequest.getCity())
 			.country(addressCreateRequest.getCountry())
