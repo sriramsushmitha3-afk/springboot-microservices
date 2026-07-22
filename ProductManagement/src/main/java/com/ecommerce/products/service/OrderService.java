@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.ecommerce.products.builder.OrderBuilder;
 import com.ecommerce.products.builder.OrderItemBuilder;
 import com.ecommerce.products.dao.OrderRepository;
+//import com.ecommerce.products.dao.ProductRespository;
 import com.ecommerce.products.dto.request.OrderCreateRequest;
 import com.ecommerce.products.dto.request.OrderUpdateRequest;
 import com.ecommerce.products.dto.response.OrderResponse;
@@ -25,7 +26,13 @@ public class OrderService {
 	
 	public OrderResponse addOrder(OrderCreateRequest orderCreateRequest) {
 		Order order = OrderBuilder.buildOrderByOrderCreateRequest(orderCreateRequest);
+		order.setStatus("ORDERED");
 		order.setOrderDate(LocalDateTime.now());
+		
+		//set price for every order
+//		for(OrderItem item: order.getOrderItems()) {
+//			item
+//		}
 		order.setTotalPrice(calculateTotalPrice(order.getOrderItems()));
 		Order savedOrder = orderRepository.save(order);
 		OrderResponse orderResponseFromOrder = OrderBuilder.buildOrderResponseFromOrder(savedOrder);
@@ -68,7 +75,7 @@ public class OrderService {
 		OrderBuilder.linkOrderItems(existingOrder);
 		
 		existingOrder.setTotalPrice(calculateTotalPrice(existingOrder.getOrderItems()));
-		
+	
 		Order savedOrder = orderRepository.save(existingOrder);
 		
 		return OrderBuilder.buildOrderResponseFromOrder(savedOrder);

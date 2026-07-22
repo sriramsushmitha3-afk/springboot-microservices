@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ecommerce.products.builder.ProductBuilder;
-import com.ecommerce.products.dao.ProductRespository;
+import com.ecommerce.products.dao.ProductRepository;
 import com.ecommerce.products.dto.request.ProductCreateRequest;
 import com.ecommerce.products.dto.request.ProductUpdateRequest;
 import com.ecommerce.products.dto.response.ProductResponse;
@@ -17,7 +17,7 @@ import com.ecommerce.products.model.Product;
 public class ProductService {
 
 	@Autowired
-	ProductRespository productRespository;
+	ProductRepository productRespository;
 
 	
 	

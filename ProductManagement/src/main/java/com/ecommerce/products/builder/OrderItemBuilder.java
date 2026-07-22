@@ -28,6 +28,7 @@ public class OrderItemBuilder {
 	
 	public static OrderItem buildOrderItemFromOrderItemUpdateRequest(OrderItemUpdateRequest orderItemUpdateRequest) {
 		return OrderItem.builder()
+						.orderItemId(orderItemUpdateRequest.getOrderItemId())
 						.productId(orderItemUpdateRequest.getProductId())
 						.quantity(orderItemUpdateRequest.getQuantity())
 						.build();

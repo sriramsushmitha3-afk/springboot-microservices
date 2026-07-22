@@ -17,8 +17,6 @@ public class OrderCreateRequest {
 
 	private long userId;
 	
-	private String status;
-	
 	private List<OrderItemCreateRequest> orderItems;
 	
 }

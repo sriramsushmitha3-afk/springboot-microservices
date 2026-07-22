@@ -31,10 +31,10 @@ public class DeliveryBuilder {
 		
 	}
 
-	public static DeliveryResponse buildDeliveryFromDeliveryUpdateRequest(Delivery existingDelivery,
+	public static Delivery buildDeliveryFromDeliveryUpdateRequest(Delivery existingDelivery,
 			DeliveryUpdateRequest deliveryUpdateRequest) {
 				
-		return DeliveryResponse.builder()
+		return Delivery.builder()
 								.deliveryId(existingDelivery.getDeliveryId())
 								.estimatedDeliveryDate(deliveryUpdateRequest.getEstimatedDeliveryDate())
 								.orderId(existingDelivery.getOrderId())

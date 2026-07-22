@@ -40,8 +40,10 @@ public class DeliveryService {
 
 	public DeliveryResponse updateDeliveryById(long deliveryId, DeliveryUpdateRequest deliveryUpdateRequest) {
 		Delivery existingDelivery = deliveryRepository.findById(deliveryId).orElseThrow(()->new RuntimeException("Delivery not found with Id : "+ deliveryId));
-		DeliveryBuilder.buildDeliveryFromDeliveryUpdateRequest(existingDelivery,deliveryUpdateRequest);
-		return null;
+		Delivery deliveryFromDeliveryUpdateRequest = DeliveryBuilder.buildDeliveryFromDeliveryUpdateRequest(existingDelivery,deliveryUpdateRequest);
+		Delivery updatedDelivery = deliveryRepository.save(deliveryFromDeliveryUpdateRequest);
+		return DeliveryBuilder.buildDeliveryResponseFromDelivery(updatedDelivery);
+		
 	}
 
 	
