@@ -20,6 +20,8 @@ public class OrderResponse {
 	
 	private long userId;
 	
+	private String userName;
+	
 	private double totalPrice;
 	
 	private String status;

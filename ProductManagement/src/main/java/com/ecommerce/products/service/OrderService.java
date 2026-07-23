@@ -3,9 +3,11 @@ package com.ecommerce.products.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.RestTemplate;
 
 import com.ecommerce.products.builder.OrderBuilder;
 import com.ecommerce.products.builder.OrderItemBuilder;
@@ -14,6 +16,7 @@ import com.ecommerce.products.dao.OrderRepository;
 import com.ecommerce.products.dto.request.OrderCreateRequest;
 import com.ecommerce.products.dto.request.OrderUpdateRequest;
 import com.ecommerce.products.dto.response.OrderResponse;
+import com.ecommerce.products.dto.response.UserResponse;
 import com.ecommerce.products.model.Order;
 import com.ecommerce.products.model.OrderItem;
 
@@ -23,16 +26,15 @@ public class OrderService {
 	@Autowired
 	OrderRepository orderRepository;
 	
+	@Autowired
+	RestTemplate restTemplate;
 	
 	public OrderResponse addOrder(OrderCreateRequest orderCreateRequest) {
 		Order order = OrderBuilder.buildOrderByOrderCreateRequest(orderCreateRequest);
 		order.setStatus("ORDERED");
 		order.setOrderDate(LocalDateTime.now());
 		
-		//set price for every order
-//		for(OrderItem item: order.getOrderItems()) {
-//			item
-//		}
+
 		order.setTotalPrice(calculateTotalPrice(order.getOrderItems()));
 		Order savedOrder = orderRepository.save(order);
 		OrderResponse orderResponseFromOrder = OrderBuilder.buildOrderResponseFromOrder(savedOrder);
@@ -59,7 +61,16 @@ public class OrderService {
 	
 	public OrderResponse getOrderById(Long orderId) {
 		Order order = orderRepository.findById(orderId).orElseThrow(()->new RuntimeException("Order not found with id: "+orderId));
-		return OrderBuilder.buildOrderResponseFromOrder(order);
+	 OrderResponse orderResponseFromOrder = OrderBuilder.buildOrderResponseFromOrder(order);
+	 
+	
+	UserResponse userResponse = restTemplate.getForObject("http://localhost:8081/users/"+orderResponseFromOrder.getUserId(), UserResponse.class);
+	System.out.println(userResponse);
+	orderResponseFromOrder.setUserName(userResponse.getUserName());
+	return orderResponseFromOrder;
+	 
+
+	 
 	}
 	
 	public OrderResponse updateOrderById(long orderId, OrderUpdateRequest orderUpdateRequest) {

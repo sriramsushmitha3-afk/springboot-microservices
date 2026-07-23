@@ -36,7 +36,6 @@ public class OrderController {
 	public List<OrderResponse> getAllOrders(){
 		return orderService.getAllOrders();
 		
-		
 	}
 	
 	@GetMapping("/{orderId}")
