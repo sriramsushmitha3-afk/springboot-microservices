@@ -6,6 +6,8 @@ import com.ecommerce.user.dto.request.UserCreateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.AddressResponse;
 import com.ecommerce.user.dto.response.UserResponse;
+import com.ecommerce.user.enums.AccountStatus;
+import com.ecommerce.user.enums.Role;
 import com.ecommerce.user.model.Address;
 import com.ecommerce.user.model.User;
 
@@ -19,6 +21,8 @@ public class UserBuilder {
 			.password(userCreateRequest.getPassword())
 			.phoneNum(userCreateRequest.getPhoneNum())
 			.address(buildAddressFromAddressCreateRequest(userCreateRequest.getAddress()))
+			.role(Role.CUSTOMER)
+			.accountStatus(AccountStatus.ACTIVE)
 			.build();
 		
 	}
@@ -31,6 +35,8 @@ public class UserBuilder {
 					.password(userUpdateRequest.getPassword())
 					.phoneNum(userUpdateRequest.getPhoneNum())
 					.address(buildAddressFromAddressUpdateRequest(existingUser.getAddress(), userUpdateRequest.getAddress()))
+					.role(existingUser.getRole())
+					.accountStatus(existingUser.getAccountStatus())
 					.build();
 	}
 	
@@ -64,6 +70,8 @@ public class UserBuilder {
 				.email(user.getEmail())
 				.phoneNum(user.getPhoneNum())
 				.address(buildAddressResponseFromAddress(user.getAddress()))
+				.role(user.getRole())
+				.accountStatus(user.getAccountStatus())
 				.build();
 		
 	}

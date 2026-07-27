@@ -29,6 +29,7 @@ public class OrderService {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	
 	public OrderResponse addOrder(OrderCreateRequest orderCreateRequest) {
 		Order order = OrderBuilder.buildOrderByOrderCreateRequest(orderCreateRequest);
 		order.setStatus("ORDERED");
@@ -59,6 +60,8 @@ public class OrderService {
 		 				.toList();
 	}
 	
+	
+	
 	public OrderResponse getOrderById(Long orderId) {
 		Order order = orderRepository.findById(orderId).orElseThrow(()->new RuntimeException("Order not found with id: "+orderId));
 	 OrderResponse orderResponseFromOrder = OrderBuilder.buildOrderResponseFromOrder(order);
@@ -68,8 +71,6 @@ public class OrderService {
 	System.out.println(userResponse);
 	orderResponseFromOrder.setUserName(userResponse.getUserName());
 	return orderResponseFromOrder;
-	 
-
 	 
 	}
 	

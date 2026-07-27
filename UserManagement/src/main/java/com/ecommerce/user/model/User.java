@@ -1,8 +1,13 @@
 package com.ecommerce.user.model;
 
+import com.ecommerce.user.enums.AccountStatus;
+import com.ecommerce.user.enums.Role;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,6 +42,12 @@ public class User {
 	
 	@Column(unique = true)
 	private String phoneNum;
+	
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
+	@Enumerated(EnumType.STRING)
+	private AccountStatus accountStatus;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id")

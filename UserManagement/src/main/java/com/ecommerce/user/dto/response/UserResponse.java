@@ -1,5 +1,8 @@
 package com.ecommerce.user.dto.response;
 
+import com.ecommerce.user.enums.AccountStatus;
+import com.ecommerce.user.enums.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,5 +19,7 @@ public class UserResponse {
 	private String email;
 	private String phoneNum;
 	private AddressResponse address;
+	private Role role;
+	private AccountStatus accountStatus;
 
 }

@@ -10,6 +10,8 @@ import com.ecommerce.user.dao.UserRepository;
 import com.ecommerce.user.dto.request.UserCreateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.UserResponse;
+import com.ecommerce.user.enums.AccountStatus;
+import com.ecommerce.user.enums.Role;
 import com.ecommerce.user.model.User;
 
 @Service
@@ -19,7 +21,6 @@ public class UserService {
 	UserRepository userRepository;
 	
 	public UserResponse save(UserCreateRequest userCreateRequest) {
-		System.out.println(userCreateRequest);
 		User user = UserBuilder.buildUserFromUserCreateRequest(userCreateRequest);
 		User savedUser = userRepository.save(user);
 		UserResponse userResponseFromUser = UserBuilder.buildUserResponseFromUser(savedUser);
@@ -46,7 +47,6 @@ public class UserService {
 		User existingUser = userRepository.findById(userId).orElseThrow(()->new RuntimeException("User not found with this id: "+userId));
 		User user = UserBuilder.buildUserFromUserUpdateRequest(existingUser,userUpdateRequest);
 		User savedUser = userRepository.save(user);
-		
 		return UserBuilder.buildUserResponseFromUser(savedUser);
 		
 	}
