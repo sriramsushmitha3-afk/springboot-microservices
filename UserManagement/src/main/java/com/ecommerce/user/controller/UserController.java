@@ -18,6 +18,8 @@ import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.UserResponse;
 import com.ecommerce.user.service.UserService;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/users")
@@ -27,7 +29,7 @@ public class UserController {
 	UserService userService;
 	
 	@PostMapping
-	public UserResponse saveUser(@RequestBody UserCreateRequest userCreateRequest ) {
+	public UserResponse saveUser(@Valid @RequestBody UserCreateRequest userCreateRequest ) {
 		return userService.save(userCreateRequest);
 		
 	}
@@ -46,7 +48,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/{userId}")
-	public UserResponse updateUserById(@PathVariable long userId,@RequestBody UserUpdateRequest userUpdateRequest ) {
+	public UserResponse updateUserById(@PathVariable long userId,@Valid @RequestBody UserUpdateRequest userUpdateRequest ) {
 		return userService.updateUserById(userId,userUpdateRequest);
 		
 	}
