@@ -29,7 +29,7 @@ public class UserCreateRequest {
 	private String password;
 	
 	@NotBlank(message = "phone number is required" )
-	@Pattern(regexp = "^[0-9]{10}$", message="Phone number must contain exactly 10 digits")
+	@Pattern(regexp = "^[6-9][0-9]{9}$", message="Phone number must contain exactly 10 digits")
 	private String phoneNum;
 	
 	@Valid

@@ -12,6 +12,7 @@ import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.UserResponse;
 import com.ecommerce.user.enums.AccountStatus;
 import com.ecommerce.user.enums.Role;
+import com.ecommerce.user.exceptions.UserNotFoundException;
 import com.ecommerce.user.model.User;
 
 @Service
@@ -38,7 +39,7 @@ public class UserService {
 	}
 
 	public UserResponse getUserById(long userId) {
-		 User user=userRepository.findById(userId).orElseThrow(()->new RuntimeException("User not found with this id: "+userId));
+		 User user=userRepository.findById(userId).orElseThrow(()->new UserNotFoundException("User not found with this id: "+userId));
 		
 		 return UserBuilder.buildUserResponseFromUser(user);
 	}

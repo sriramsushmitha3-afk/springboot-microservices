@@ -1,6 +1,7 @@
 package com.ecommerce.user.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class AddressUpdateRequest {
 	private String city;
 	
 	@NotBlank(message = "pincode is required")
+	@Pattern(regexp = "^[1-9][0-9]{5}$", message = "Invalid pincode")
 	private String pincode;
 	
 	@NotBlank(message = "state is required")
