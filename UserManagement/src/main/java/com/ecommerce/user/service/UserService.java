@@ -3,6 +3,7 @@ package com.ecommerce.user.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.user.builder.UserBuilder;
@@ -21,8 +22,12 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	public UserResponse save(UserCreateRequest userCreateRequest) {
 		User user = UserBuilder.buildUserFromUserCreateRequest(userCreateRequest);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User savedUser = userRepository.save(user);
 		UserResponse userResponseFromUser = UserBuilder.buildUserResponseFromUser(savedUser);
 		return userResponseFromUser;
@@ -45,8 +50,9 @@ public class UserService {
 	}
 
 	public UserResponse updateUserById(long userId, UserUpdateRequest userUpdateRequest) {
-		User existingUser = userRepository.findById(userId).orElseThrow(()->new RuntimeException("User not found with this id: "+userId));
+		User existingUser = userRepository.findById(userId).orElseThrow(()->new UserNotFoundException("User not found with this id: "+userId));
 		User user = UserBuilder.buildUserFromUserUpdateRequest(existingUser,userUpdateRequest);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User savedUser = userRepository.save(user);
 		return UserBuilder.buildUserResponseFromUser(savedUser);
 		
@@ -54,7 +60,7 @@ public class UserService {
 
 	public void deleteUserById(long userId) {
 		if(!userRepository.existsById(userId)) {
-			throw new RuntimeException("User not found with id: "+userId);
+			throw new UserNotFoundException("User not found with id: "+userId);
 		}
 		userRepository.deleteById(userId);
 	}
