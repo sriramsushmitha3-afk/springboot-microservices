@@ -5,6 +5,7 @@ import com.ecommerce.user.dto.request.AddressUpdateRequest;
 import com.ecommerce.user.dto.request.UserCreateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.AddressResponse;
+import com.ecommerce.user.dto.response.AuthResponse;
 import com.ecommerce.user.dto.response.UserResponse;
 import com.ecommerce.user.enums.AccountStatus;
 import com.ecommerce.user.enums.Role;
@@ -14,7 +15,6 @@ import com.ecommerce.user.model.User;
 public class UserBuilder {
 
 	public static User buildUserFromUserCreateRequest(UserCreateRequest userCreateRequest) {
-		System.out.println(userCreateRequest);
 		return User.builder()
 			.userName(userCreateRequest.getUserName())
 			.email(userCreateRequest.getEmail())
@@ -41,7 +41,6 @@ public class UserBuilder {
 	}
 	
 	public static Address buildAddressFromAddressCreateRequest(AddressCreateRequest addressCreateRequest) {
-		System.out.println(addressCreateRequest);
 		return Address.builder()
 			.city(addressCreateRequest.getCity())
 			.country(addressCreateRequest.getCountry())
@@ -84,6 +83,17 @@ public class UserBuilder {
 				.pincode(address.getPincode())
 				.street(address.getStreet())
 				.state(address.getState())
+				.build();
+		
+	}
+	
+	public static AuthResponse buildUserAuthLoginResponseFromUser(User user) {
+		return AuthResponse.builder()
+				.userId(user.getUserId())
+				.userName(user.getUserName())
+				.email(user.getEmail())
+				.role(user.getRole())
+				.accountStatus(user.getAccountStatus())
 				.build();
 		
 	}

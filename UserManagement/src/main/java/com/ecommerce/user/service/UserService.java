@@ -11,8 +11,6 @@ import com.ecommerce.user.dao.UserRepository;
 import com.ecommerce.user.dto.request.UserCreateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.UserResponse;
-import com.ecommerce.user.enums.AccountStatus;
-import com.ecommerce.user.enums.Role;
 import com.ecommerce.user.exceptions.UserNotFoundException;
 import com.ecommerce.user.model.User;
 
