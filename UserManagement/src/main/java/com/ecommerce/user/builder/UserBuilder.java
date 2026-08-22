@@ -87,13 +87,14 @@ public class UserBuilder {
 		
 	}
 	
-	public static AuthResponse buildUserAuthLoginResponseFromUser(User user) {
+	public static AuthResponse buildUserAuthLoginResponseFromUser(User user, String token) {
 		return AuthResponse.builder()
 				.userId(user.getUserId())
 				.userName(user.getUserName())
 				.email(user.getEmail())
 				.role(user.getRole())
-				.accountStatus(user.getAccountStatus())
+				.accountStatus(user.getAccountStatus())	
+				.token(token)
 				.build();
 		
 	}
