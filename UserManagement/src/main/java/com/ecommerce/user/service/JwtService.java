@@ -3,10 +3,16 @@ package com.ecommerce.user.service;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+
+import javax.crypto.SecretKey;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.user.model.User;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
  
@@ -33,12 +39,37 @@ public class JwtService {
 
 	}
  
-	private Key getSigningKey() {
+	private SecretKey getSigningKey() {
 
 		byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
 	    return Keys.hmacShaKeyFor(keyBytes);
 
 	}
 
+	public boolean validateToken(String token) {
+	    try {
+	        Jwts.parser()
+	            .verifyWith( getSigningKey())
+	            .build()
+	            .parseSignedClaims(token);
+
+	        return true;
+	    } catch (JwtException | IllegalArgumentException e) {
+	        return false;
+	    }
+	    
+	}
+	
+	public Claims extractClaims(String token) {
+	    return 
+	        Jwts.parser()
+	            .verifyWith( getSigningKey())
+	            .build()
+	            .parseSignedClaims(token)
+	            .getPayload();
+
+	    }
+	
+	
 }
  
