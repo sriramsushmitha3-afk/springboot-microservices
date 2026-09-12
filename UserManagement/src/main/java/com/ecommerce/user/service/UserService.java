@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ecommerce.user.builder.UserBuilder;
 import com.ecommerce.user.dao.UserRepository;
 import com.ecommerce.user.dto.request.UserCreateRequest;
+import com.ecommerce.user.dto.request.UserRoleStatusUpdateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.UserResponse;
 import com.ecommerce.user.exceptions.UserNotFoundException;
@@ -61,6 +62,17 @@ public class UserService {
 			throw new UserNotFoundException("User not found with id: "+userId);
 		}
 		userRepository.deleteById(userId);
+	}
+
+	public UserResponse updateUserRoleStatusById(long userId, UserRoleStatusUpdateRequest request) {
+		User existingUser = userRepository.findById(userId).orElseThrow(()->new UserNotFoundException("User not found with this id:"+userId));
+		
+		existingUser.setAccountStatus(request.getAccountStatus());
+		existingUser.setRole(request.getRole());
+		
+		User savedUser = userRepository.save(existingUser);
+		
+		return UserBuilder.buildUserResponseFromUser(savedUser);
 	}
 	
 }

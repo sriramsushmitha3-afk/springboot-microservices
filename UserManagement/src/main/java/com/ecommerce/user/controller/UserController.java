@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.user.dao.UserRepository;
 import com.ecommerce.user.dto.request.UserCreateRequest;
+import com.ecommerce.user.dto.request.UserRoleStatusUpdateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.UserResponse;
 import com.ecommerce.user.service.UserService;
@@ -56,5 +57,11 @@ public class UserController {
 	@DeleteMapping("/{userId}")
 	public void deleteUser(@PathVariable long userId) {
 		userService.deleteUserById(userId);
+	}
+	
+	@PutMapping("/{userId}/role-status")
+	public UserResponse updateUserRoleStatusById(@PathVariable long userId, @Valid @RequestBody UserRoleStatusUpdateRequest request) {
+		return userService.updateUserRoleStatusById(userId,request);
+		
 	}
 }
