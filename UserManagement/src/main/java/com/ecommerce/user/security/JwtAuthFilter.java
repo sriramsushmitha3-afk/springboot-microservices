@@ -24,16 +24,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
 	private final JwtService jwtService ;
 	
-
-
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
 		String header = request.getHeader("Authorization");
 		
-		System.out.println("Authorization Header = " + header);
-
+//		System.out.println("Authorization Header = " + header);
 		
 		if(header==null|| !header.startsWith("Bearer ")) {
 			filterChain.doFilter(request, response);
@@ -42,7 +39,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		
 		String token = header.substring(7);
 		
-		System.out.println("Token extracted = " + token);
+//		System.out.println("Token extracted = " + token);
 		
 		if(!jwtService.validateToken(token)) {
 			  System.out.println("JWT validation FAILED");
@@ -50,15 +47,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 			return;
 		}
 		
-		  System.out.println("JWT validation SUCCESS");
+//		  System.out.println("JWT validation SUCCESS");
 		
 		Claims claims = jwtService.extractClaims(token);
 		
 		String email = claims.getSubject();
 		String role = claims.get("role",String.class);
 		
-		System.out.println("Email = " + email);
-		System.out.println("Role = " + role);
+//		System.out.println("Email = " + email);
+//		System.out.println("Role = " + role);
 		
 		SimpleGrantedAuthority authority= new SimpleGrantedAuthority("ROLE_"+role);
 		
@@ -69,14 +66,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
-		System.out.println(
-			    "Authenticated = " +
-			    SecurityContextHolder.getContext().getAuthentication().isAuthenticated()
-			);
+//		System.out.println(
+//			    "Authenticated = " +
+//			    SecurityContextHolder.getContext().getAuthentication().isAuthenticated()
+//			);
 		
 		filterChain.doFilter(request, response);
 	}
-
 
 
 }

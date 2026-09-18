@@ -1,8 +1,11 @@
 package com.ecommerce.user.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +76,15 @@ public class UserService {
 		User savedUser = userRepository.save(existingUser);
 		
 		return UserBuilder.buildUserResponseFromUser(savedUser);
+	}
+
+	public UserResponse getSelfUser() {
+		
+//		System.out.println(context.getAuthentication().getPrincipal());
+		 String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userRepository.findByEmail(name).orElseThrow(()->new UserNotFoundException("User not found with this email:"+name));
+		
+		return UserBuilder.buildUserResponseFromUser(user);
 	}
 	
 }

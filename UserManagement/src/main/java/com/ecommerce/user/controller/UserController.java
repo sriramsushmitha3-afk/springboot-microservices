@@ -40,6 +40,7 @@ public class UserController {
 		return userService.getAllUsers();
 		
 	}
+
 	
 	@GetMapping("/{userId}")
 	public UserResponse getUserById(@PathVariable long userId) {
@@ -64,4 +65,13 @@ public class UserController {
 		return userService.updateUserRoleStatusById(userId,request);
 		
 	}
+	
+	
+	@GetMapping("/me")
+	public UserResponse getSelfUser() {
+		
+		return userService.getSelfUser();
+		
+	}
+	
 }
