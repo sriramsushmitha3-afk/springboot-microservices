@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.user.dao.UserRepository;
+import com.ecommerce.user.dto.request.UpdateOwnProfileRequest;
 import com.ecommerce.user.dto.request.UserCreateRequest;
 import com.ecommerce.user.dto.request.UserRoleStatusUpdateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
@@ -45,14 +46,12 @@ public class UserController {
 	@GetMapping("/{userId}")
 	public UserResponse getUserById(@PathVariable long userId) {
 		
-		return userService.getUserById(userId);
-		
+		return userService.getUserById(userId);	
 	}
 	
 	@PutMapping("/{userId}")
 	public UserResponse updateUserById(@PathVariable long userId,@Valid @RequestBody UserUpdateRequest userUpdateRequest ) {
-		return userService.updateUserById(userId,userUpdateRequest);
-		
+		return userService.updateUserById(userId,userUpdateRequest);	
 	}
 	
 	@DeleteMapping("/{userId}")
@@ -66,11 +65,14 @@ public class UserController {
 		
 	}
 	
-	
 	@GetMapping("/me")
 	public UserResponse getSelfUser() {
-		
-		return userService.getSelfUser();
+		return userService.getSelfUser();	
+	}
+	
+	@PutMapping("/me")
+	public UserResponse updateOwnProfile(@Valid @RequestBody UpdateOwnProfileRequest ownProfileRequest) {
+		return userService.updateOwnProfile(ownProfileRequest);
 		
 	}
 	

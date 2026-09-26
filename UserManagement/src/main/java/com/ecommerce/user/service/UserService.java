@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.ecommerce.user.builder.UserBuilder;
 import com.ecommerce.user.dao.UserRepository;
+import com.ecommerce.user.dto.request.AddressUpdateRequest;
+import com.ecommerce.user.dto.request.UpdateOwnProfileRequest;
 import com.ecommerce.user.dto.request.UserCreateRequest;
 import com.ecommerce.user.dto.request.UserRoleStatusUpdateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
@@ -83,6 +85,16 @@ public class UserService {
 //		System.out.println(context.getAuthentication().getPrincipal());
 		 String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByEmail(name).orElseThrow(()->new UserNotFoundException("User not found with this email:"+name));
+		
+		return UserBuilder.buildUserResponseFromUser(user);
+	}
+
+	public UserResponse updateOwnProfile(UpdateOwnProfileRequest ownProfileRequest) {
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userRepository.findByEmail(name).orElseThrow(()->new UserNotFoundException("User not found with this email:"+name));
+		user.setUserName(ownProfileRequest.getUserName());
+		user.setPhoneNum(ownProfileRequest.getPhoneNum());
+		user.setAddress(UserBuilder.buildAddressFromAddressUpdateRequest(user.getAddress(), ownProfileRequest.getAddress()));
 		
 		return UserBuilder.buildUserResponseFromUser(user);
 	}
