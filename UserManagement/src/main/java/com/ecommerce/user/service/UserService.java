@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ecommerce.user.builder.UserBuilder;
 import com.ecommerce.user.dao.UserRepository;
@@ -15,10 +16,13 @@ import com.ecommerce.user.dto.request.AddressUpdateRequest;
 import com.ecommerce.user.dto.request.UpdateOwnProfileRequest;
 import com.ecommerce.user.dto.request.UserCreateRequest;
 import com.ecommerce.user.dto.request.UserRoleStatusUpdateRequest;
+import com.ecommerce.user.dto.request.UserStatusUpdateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.UserResponse;
 import com.ecommerce.user.exceptions.UserNotFoundException;
 import com.ecommerce.user.model.User;
+
+import jakarta.validation.Valid;
 
 @Service
 public class UserService {
@@ -97,6 +101,13 @@ public class UserService {
 		user.setAddress(UserBuilder.buildAddressFromAddressUpdateRequest(user.getAddress(), ownProfileRequest.getAddress()));
 		
 		return UserBuilder.buildUserResponseFromUser(user);
+	}
+
+	public UserResponse updateUserStatusById(long userId, UserStatusUpdateRequest request) {
+		User user = userRepository.findById(userId).orElseThrow(()->new UserNotFoundException("User not found with this Id: "+userId));
+		user.setAccountStatus(request.getAccountStatus());
+		User savedUser = userRepository.save(user);
+		return UserBuilder.buildUserResponseFromUser(savedUser);
 	}
 	
 }

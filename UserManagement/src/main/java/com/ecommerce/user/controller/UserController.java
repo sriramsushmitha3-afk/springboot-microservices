@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +17,7 @@ import com.ecommerce.user.dao.UserRepository;
 import com.ecommerce.user.dto.request.UpdateOwnProfileRequest;
 import com.ecommerce.user.dto.request.UserCreateRequest;
 import com.ecommerce.user.dto.request.UserRoleStatusUpdateRequest;
+import com.ecommerce.user.dto.request.UserStatusUpdateRequest;
 import com.ecommerce.user.dto.request.UserUpdateRequest;
 import com.ecommerce.user.dto.response.UserResponse;
 import com.ecommerce.user.service.UserService;
@@ -73,6 +75,12 @@ public class UserController {
 	@PutMapping("/me")
 	public UserResponse updateOwnProfile(@Valid @RequestBody UpdateOwnProfileRequest ownProfileRequest) {
 		return userService.updateOwnProfile(ownProfileRequest);
+		
+	}
+	
+	@PatchMapping("/{userId}/status")
+	public UserResponse updateUserStatusById(@PathVariable long userId, @Valid @RequestBody UserStatusUpdateRequest request) {
+		return userService.updateUserStatusById(userId, request);
 		
 	}
 	
